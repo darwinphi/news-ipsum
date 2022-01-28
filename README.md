@@ -1,5 +1,7 @@
 # 📰 News Ipsum
 
+![example workflow](https://github.com/darwinphi/news-ipsum/actions/workflows/.github/workflows/gh_pages.yaml/badge.svg?branch=main&event=push)
+
 A lorem ipsum for the latest news around the world created with [React.js](https://reactjs.org/)
 
 ## Get started
