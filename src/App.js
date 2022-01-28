@@ -2,13 +2,15 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 function App() {
+  const API_URI =
+    "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=";
+  const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [numOfParagraph, setNumOfParagraph] = useState(1);
   const [news, setNews] = useState([]);
 
-  const api_key = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
-
-  const divideParagraph = (news, numOfParagraph = 1) => {
+  const divideParagraph = (news) => {
     let combinedParagraph = combineParagraph(news);
     let result = [];
     for (let i = numOfParagraph; i > 0; i--) {
@@ -42,24 +44,22 @@ function App() {
     return news.slice().sort(() => Math.random() - 0.5);
   };
 
+  const getHalfNews = (news) => {
+    const half = Math.ceil(news.length / 2);
+    const firstHalf = news.slice(0, half);
+    return firstHalf;
+  };
+
   const formatNews = (news) => {
     let combinedNews = combineNews(news);
     let formattedNews = removeEmptyNews(combinedNews);
-    return shuffleNews(formattedNews);
-  };
-
-  const copy = (news) => {
-    let paragraphs = news.map((paragraph) => {
-      return paragraph;
-    });
-    navigator.clipboard.writeText(paragraphs);
+    let halfNews = getHalfNews(formattedNews);
+    return shuffleNews(halfNews);
   };
 
   const fetchNews = async () => {
     try {
-      let response = await fetch(
-        `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${api_key}`
-      );
+      let response = await fetch(`${API_URI}${API_KEY}`);
       let result = await response.json();
       const { results } = result;
       setIsLoaded(true);
@@ -71,7 +71,21 @@ function App() {
     }
   };
 
-  console.log(news);
+  const copyText = (news) => {
+    let n = [];
+    for (let i = 0; i < numOfParagraph; i++) {
+      n.push(news[i].join(""));
+    }
+
+    navigator.clipboard.writeText(n.join("\n\n")).then(
+      function () {
+        console.log("Copied");
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
 
   useEffect(() => {
     fetchNews();
@@ -85,12 +99,15 @@ function App() {
     return (
       <main>
         <h1>📰 News Ipsum</h1>
-        {/* <button onClick={() => divideParagraph(news, 1)}>1 Paragraph</button>
-        <button onClick={() => divideParagraph(news, 2)}>2 Paragraph</button>
-        <button onClick={() => divideParagraph(news, 3)}>3 Paragraph</button> */}
-        <button onClick={() => fetchNews()}>🌎 Around the World</button>
+        <label>Paragraph</label>
+        <select onChange={(e) => setNumOfParagraph(e.target.value)}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
 
-        <button onClick={() => copy(news)}>Copy 📝</button>
+        <button onClick={() => fetchNews()}>🌎 Show Latest News</button>
+        <button onClick={() => copyText(news)}>📝 Copy </button>
         <section>
           {news.map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
