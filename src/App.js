@@ -89,7 +89,7 @@ function App() {
 
   useEffect(() => {
     fetchNews();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) {
     return <div>Error: {error.message}</div>;
