@@ -1,6 +1,6 @@
 # 📰 News Ipsum
 
-A lorem ipsum for latest news around world created with [React.js](https://reactjs.org/)
+A lorem ipsum for the latest news around the world created with [React.js](https://reactjs.org/)
 
 ## Get started
 Install the dependencies...
