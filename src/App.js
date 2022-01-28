@@ -1,3 +1,4 @@
+import "./App.css";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
 
   const combineNews = (results) => {
     let combinedNews = results.map((item) => {
-      return `${item.abstract}`;
+      return ` ${item.abstract}`;
     });
 
     setNews(combinedNews);
@@ -57,7 +58,7 @@ function App() {
   const fetchNews = async () => {
     try {
       let response = await fetch(
-        `https://api.nytimes.com/svc/topstories/v2/science.json?api-key=${api_key}`
+        `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${api_key}`
       );
       let result = await response.json();
       const { results } = result;
@@ -82,18 +83,20 @@ function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <>
-        <h1>News Ipsum</h1>
-        <button onClick={() => divideParagraph(news, 1)}>1 Paragraph</button>
+      <main>
+        <h1>📰 News Ipsum</h1>
+        {/* <button onClick={() => divideParagraph(news, 1)}>1 Paragraph</button>
         <button onClick={() => divideParagraph(news, 2)}>2 Paragraph</button>
-        <button onClick={() => divideParagraph(news, 3)}>3 Paragraph</button>
-        <button onClick={() => fetchNews()}>Generate</button>
+        <button onClick={() => divideParagraph(news, 3)}>3 Paragraph</button> */}
+        <button onClick={() => fetchNews()}>🌎 Around the World</button>
 
-        <button onClick={() => copy(news)}>Copy</button>
-        {news.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
-      </>
+        <button onClick={() => copy(news)}>Copy 📝</button>
+        <section>
+          {news.map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
+        </section>
+      </main>
     );
   }
 }
