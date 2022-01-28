@@ -18,3 +18,10 @@ npm start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+
+### Data are provided by
+
+<img src="https://static01.nyt.com/vi-assets/images/share/1200x1200_t.png" width=50>
+
+[The New York Times](https://developer.nytimes.com/)
