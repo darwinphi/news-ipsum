@@ -1,43 +1,24 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import useFetch from "./useFetch";
 
 function App() {
   const API_URI =
     "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=";
   const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const API = `${API_URI}${API_KEY}`;
+
+  const [refreshAPI, setRefreshAPI] = useState(false);
+  let { data } = useFetch({ uri: API, refreshAPI: refreshAPI });
   const [numOfParagraph, setNumOfParagraph] = useState(1);
-  const [news, setNews] = useState([]);
-
-  const divideParagraph = (news) => {
-    let combinedParagraph = combineParagraph(news);
-    let result = [];
-    for (let i = numOfParagraph; i > 0; i--) {
-      result.push(
-        combinedParagraph.splice(0, Math.ceil(combinedParagraph.length / i))
-      );
-    }
-    setNews(result);
-  };
-
-  const combineNews = (results) => {
-    let combinedNews = results.map((item) => {
-      return ` ${item.abstract}`;
-    });
-
-    setNews(combinedNews);
-    return combinedNews;
-  };
+  const [news, setNews] = useState(null);
 
   const combineParagraph = (arr) => {
-    return arr.flat();
+    return arr && arr.flat();
   };
 
-  const removeEmptyNews = (news) => {
-    return news.filter(function (e) {
-      return e === 0 ? "0" : e;
-    });
+  const removeEmptyNews = (data) => {
+    return data.filter((element) => element !== " ");
   };
 
   const shuffleNews = (news) => {
@@ -48,27 +29,6 @@ function App() {
     const half = Math.ceil(news.length / 2);
     const firstHalf = news.slice(0, half);
     return firstHalf;
-  };
-
-  const formatNews = (news) => {
-    let combinedNews = combineNews(news);
-    let formattedNews = removeEmptyNews(combinedNews);
-    let halfNews = getHalfNews(formattedNews);
-    return shuffleNews(halfNews);
-  };
-
-  const fetchNews = async () => {
-    try {
-      let response = await fetch(`${API_URI}${API_KEY}`);
-      let result = await response.json();
-      const { results } = result;
-      setIsLoaded(true);
-      let formattedNews = formatNews(results);
-      divideParagraph(formattedNews);
-    } catch (error) {
-      setIsLoaded(true);
-      setError(error);
-    }
   };
 
   const copyText = (news) => {
@@ -87,35 +47,67 @@ function App() {
     );
   };
 
+  const combineNews = (data) => {
+    return data.map((item) => ` ${item.abstract}`);
+  };
+
+  const divideParagraphInitial = useCallback(
+    (news) => {
+      if (news) {
+        let shuffledNews = shuffleNews(news);
+        let combinedParagraph = combineParagraph(shuffledNews);
+        let result = [];
+        for (let i = numOfParagraph; i > 0; i--) {
+          result.push(
+            combinedParagraph.splice(0, Math.ceil(combinedParagraph.length / i))
+          );
+        }
+        setNews(result);
+      }
+    },
+    [numOfParagraph]
+  );
+
+  console.log("News outside useEffect", news);
+  console.log("Data outside useEffect", data);
+
   useEffect(() => {
-    fetchNews();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    console.log("Data inside useEffect", data);
+    if (data) {
+      let combinedNews = combineNews(data);
+      console.log("Combined", combinedNews);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <main>
-        <h1>📰 News Ipsum</h1>
-        <label>Paragraph</label>
-        <select onChange={(e) => setNumOfParagraph(e.target.value)}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
+      let removedEmptyNews = removeEmptyNews(combinedNews);
+      console.log("Removed Empty News", removedEmptyNews);
 
-        <button onClick={() => fetchNews()}>🌎 Show Latest News</button>
-        <button onClick={() => copyText(news)}>📝 Copy </button>
-        <section>
-          {news.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </section>
-      </main>
-    );
-  }
+      let halvedNews = getHalfNews(removedEmptyNews);
+      console.log("Half News", halvedNews);
+
+      divideParagraphInitial(halvedNews);
+    }
+  }, [data, divideParagraphInitial]);
+  return (
+    <main>
+      <h1>📰 News Ipsum</h1>
+      {/* <button onClick={() => setRefreshAPI(!refreshAPI)}>Load API</button> */}
+
+      <label>Paragraph</label>
+      <select onChange={(e) => setNumOfParagraph(e.target.value)}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+
+      <button onClick={() => setRefreshAPI(!refreshAPI)}>
+        🌎 Show Latest News
+      </button>
+      <button onClick={() => copyText(news)}>📝 Copy </button>
+      <section>
+        {/* Should always be in a correct format or else Uncaught Error: Objects are not valid as a React child */}
+        {news && news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+      </section>
+    </main>
+  );
 }
 
 export default App;
