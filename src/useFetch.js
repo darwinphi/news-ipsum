@@ -7,8 +7,6 @@ const useFetch = ({ uri, refreshAPI }) => {
       try {
         let response = await fetch(uri);
         let result = await response.json();
-        console.log(result.results);
-        console.log("refreshAPI for useFetch", refreshAPI);
         setData(result.results);
       } catch (error) {
         console.log(error);

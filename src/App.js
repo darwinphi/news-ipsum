@@ -51,7 +51,7 @@ function App() {
     return data.map((item) => ` ${item.abstract}`);
   };
 
-  const divideParagraphInitial = useCallback(
+  const divideParagraph = useCallback(
     (news) => {
       if (news) {
         let shuffledNews = shuffleNews(news);
@@ -68,17 +68,21 @@ function App() {
     [numOfParagraph]
   );
 
+  const formatNews = useCallback(
+    (data) => {
+      let combinedNews = combineNews(data);
+      let removedEmptyNews = removeEmptyNews(combinedNews);
+      let halvedNews = getHalfNews(removedEmptyNews);
+      return divideParagraph(halvedNews);
+    },
+    [divideParagraph]
+  );
+
   useEffect(() => {
     if (data) {
-      let combinedNews = combineNews(data);
-
-      let removedEmptyNews = removeEmptyNews(combinedNews);
-
-      let halvedNews = getHalfNews(removedEmptyNews);
-
-      divideParagraphInitial(halvedNews);
+      formatNews(data);
     }
-  }, [data, divideParagraphInitial]);
+  }, [data, formatNews]);
   return (
     <main>
       <h1>📰 News Ipsum</h1>
