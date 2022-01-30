@@ -12,6 +12,7 @@ function App() {
   let { data } = useFetch({ uri: API, refreshAPI: refreshAPI });
   const [numOfParagraph, setNumOfParagraph] = useState(1);
   const [news, setNews] = useState(null);
+  const [copy, setCopy] = useState("📝 Copy");
 
   const combineParagraph = (arr) => {
     return arr && arr.flat();
@@ -87,7 +88,12 @@ function App() {
     <main>
       <h1>📰 News Ipsum</h1>
 
-      <select onChange={(e) => setNumOfParagraph(e.target.value)}>
+      <select
+        onChange={(e) => {
+          setNumOfParagraph(e.target.value);
+          setCopy("📝 Copy");
+        }}
+      >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -96,12 +102,21 @@ function App() {
 
       <button
         className="button-latest-news"
-        onClick={() => setRefreshAPI(!refreshAPI)}
+        onClick={() => {
+          setRefreshAPI(!refreshAPI);
+          setCopy("📝 Copy");
+        }}
       >
         🌎 Show Latest News
       </button>
-      <button className="button-copy" onClick={() => copyText(news)}>
-        📝 Copy{" "}
+      <button
+        className="button-copy"
+        onClick={() => {
+          copyText(news);
+          setCopy("✨ Copied!");
+        }}
+      >
+        {copy}
       </button>
 
       <section>
