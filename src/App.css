@@ -1,20 +1,68 @@
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 button {
-  margin: 0.8rem;
+  margin: 0.8rem 0.8rem 0.8rem 0;
 }
 
 main {
-  width: 50%;
+  width: 90vw;
   margin: 0 auto;
   text-align: center;
 }
 
 main h1 {
-  padding: 1rem;
-  border: 2px dotted #8bd3dd;
+  padding: 0.8rem;
+  border: 2px dotted var(--tertiary-bg-color);
+}
+
+main label {
+  margin: 0.8rem;
+}
+
+main button {
+  padding: 0.8rem;
+  width: 90%;
+}
+
+main select {
+  padding: 0.8rem;
 }
 
 main section {
+  margin-top: 1rem;
   text-align: justify;
   padding: 1rem;
-  background-color: #8bd3dd;
+  background-color: var(--tertiary-bg-color);
+}
+
+@media only screen and (min-width: 600px) {
+  main button {
+    width: auto;
+    margin: 0.8rem;
+  }
+
+  main  {
+    width: 80vw;
+  }
+  main select {
+
+    margin-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  main button {
+    width: auto;
+  }
+
+  main  {
+    width: 70vw;
+  }
+  main select {
+
+    margin-right: 1rem;
+  }
 }

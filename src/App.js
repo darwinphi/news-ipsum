@@ -87,17 +87,23 @@ function App() {
     <main>
       <h1>📰 News Ipsum</h1>
 
-      <label>Paragraph</label>
       <select onChange={(e) => setNumOfParagraph(e.target.value)}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </select>
+      <label>Paragraph(s)</label>
 
-      <button onClick={() => setRefreshAPI(!refreshAPI)}>
+      <button
+        className="button-latest-news"
+        onClick={() => setRefreshAPI(!refreshAPI)}
+      >
         🌎 Show Latest News
       </button>
-      <button onClick={() => copyText(news)}>📝 Copy </button>
+      <button className="button-copy" onClick={() => copyText(news)}>
+        📝 Copy{" "}
+      </button>
+
       <section>
         {news && news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
       </section>

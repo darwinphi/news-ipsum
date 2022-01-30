@@ -3,6 +3,7 @@
 :root {
   --primary-bg-color: #fef6e4;
   --secondary-bg-color: #f3d2c1;
+  --tertiary-bg-color: #8bd3dd;
   --headline-color: #001858;
   --paragraph-color: #172c66;
   --button-bg-color: #f582ae;
@@ -49,18 +50,13 @@ h6 {
 button {
   background-color: var(--button-bg-color);
   cursor: pointer;
-  transition: 500ms;
-}
-
-button:hover {
-  transform: translateY(-5px);
-  box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px,
-    rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px,
-    rgba(240, 46, 170, 0.05) 0px 25px;
+  transition: 300ms;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
 }
 
 button:active {
-  transform: translateY(5px) scale(0.8);
+  transform: translateY(5px);
+  box-shadow: none;
 }
 
 input,
