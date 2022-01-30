@@ -68,20 +68,14 @@ function App() {
     [numOfParagraph]
   );
 
-  console.log("News outside useEffect", news);
-  console.log("Data outside useEffect", data);
-
   useEffect(() => {
     console.log("Data inside useEffect", data);
     if (data) {
       let combinedNews = combineNews(data);
-      console.log("Combined", combinedNews);
 
       let removedEmptyNews = removeEmptyNews(combinedNews);
-      console.log("Removed Empty News", removedEmptyNews);
 
       let halvedNews = getHalfNews(removedEmptyNews);
-      console.log("Half News", halvedNews);
 
       divideParagraphInitial(halvedNews);
     }
@@ -89,7 +83,6 @@ function App() {
   return (
     <main>
       <h1>📰 News Ipsum</h1>
-      {/* <button onClick={() => setRefreshAPI(!refreshAPI)}>Load API</button> */}
 
       <label>Paragraph</label>
       <select onChange={(e) => setNumOfParagraph(e.target.value)}>
@@ -103,7 +96,6 @@ function App() {
       </button>
       <button onClick={() => copyText(news)}>📝 Copy </button>
       <section>
-        {/* Should always be in a correct format or else Uncaught Error: Objects are not valid as a React child */}
         {news && news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
       </section>
     </main>
