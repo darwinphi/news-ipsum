@@ -69,7 +69,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log("Data inside useEffect", data);
     if (data) {
       let combinedNews = combineNews(data);
 
