@@ -7,29 +7,45 @@ function App() {
     "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=";
   const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
   const API = `${API_URI}${API_KEY}`;
+  const SIZE = {
+    SHORT: 5,
+    MEDIUM: 4,
+    LONG: 3,
+  };
+  const COPY_TEXT = {
+    COPY: "📝 Copy",
+    COPIED: "✨ Copied!",
+  };
 
   const [refreshAPI, setRefreshAPI] = useState(false);
   let { data } = useFetch({ uri: API, refreshAPI: refreshAPI });
   const [numOfParagraph, setNumOfParagraph] = useState(1);
   const [news, setNews] = useState(null);
-  const [copy, setCopy] = useState("📝 Copy");
+  const [copy, setCopy] = useState(COPY_TEXT.COPY);
+  const [sizeOfParagraph, setSizeOfParagraph] = useState(SIZE.SHORT);
 
-  const combineParagraph = (arr) => {
-    return arr && arr.flat();
+  const combineNews = (data) => {
+    return data.map((item) => ` ${item.abstract}`);
   };
 
   const removeEmptyNews = (data) => {
     return data.filter((element) => element !== " ");
   };
 
+  const getSizeOfNews = useCallback(
+    (news) => {
+      const size = Math.ceil(news.length / sizeOfParagraph);
+      return news.slice(1, size);
+    },
+    [sizeOfParagraph]
+  );
+
   const shuffleNews = (news) => {
     return news.slice().sort(() => Math.random() - 0.5);
   };
 
-  const getHalfNews = (news) => {
-    const half = Math.ceil(news.length / 2);
-    const firstHalf = news.slice(0, half);
-    return firstHalf;
+  const combineParagraph = (arr) => {
+    return arr && arr.flat();
   };
 
   const copyText = (news) => {
@@ -46,10 +62,6 @@ function App() {
         console.log(err);
       }
     );
-  };
-
-  const combineNews = (data) => {
-    return data.map((item) => ` ${item.abstract}`);
   };
 
   const divideParagraph = useCallback(
@@ -73,10 +85,10 @@ function App() {
     (data) => {
       let combinedNews = combineNews(data);
       let removedEmptyNews = removeEmptyNews(combinedNews);
-      let halvedNews = getHalfNews(removedEmptyNews);
-      return divideParagraph(halvedNews);
+      let sizeOfNews = getSizeOfNews(removedEmptyNews);
+      return divideParagraph(sizeOfNews);
     },
-    [divideParagraph]
+    [divideParagraph, getSizeOfNews]
   );
 
   useEffect(() => {
@@ -91,12 +103,22 @@ function App() {
       <select
         onChange={(e) => {
           setNumOfParagraph(e.target.value);
-          setCopy("📝 Copy");
+          setCopy(COPY_TEXT.COPY);
         }}
       >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
+      </select>
+      <select
+        onChange={(e) => {
+          setSizeOfParagraph(e.target.value);
+          setCopy(COPY_TEXT.COPY);
+        }}
+      >
+        <option value={SIZE.SHORT}>Short</option>
+        <option value={SIZE.MEDIUM}>Medium</option>
+        <option value={SIZE.LONG}>Long</option>
       </select>
       <label>Paragraph(s)</label>
 
@@ -104,7 +126,7 @@ function App() {
         className="button-latest-news"
         onClick={() => {
           setRefreshAPI(!refreshAPI);
-          setCopy("📝 Copy");
+          setCopy(COPY_TEXT.COPY);
         }}
       >
         🌎 Show Latest News
@@ -113,7 +135,7 @@ function App() {
         className="button-copy"
         onClick={() => {
           copyText(news);
-          setCopy("✨ Copied!");
+          setCopy(COPY_TEXT.COPIED);
         }}
       >
         {copy}
