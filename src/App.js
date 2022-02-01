@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect, useCallback } from "react";
 import useFetch from "./useFetch";
+import Select from "./components/Select";
 
 function App() {
   const API_URI =
@@ -16,6 +17,17 @@ function App() {
     COPY: "📝 Copy",
     COPIED: "✨ Copied!",
   };
+  const numOfParagraphOptions = [
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "3" },
+  ];  
+
+  const sizeOfParagraphOptions = [
+    { value: SIZE.SHORT, label: "Short" },
+    { value: SIZE.MEDIUM, label: "Medium" },
+    { value: SIZE.LONG, label: "Long" },
+  ];
 
   const [refreshAPI, setRefreshAPI] = useState(false);
   let { data } = useFetch({ uri: API, refreshAPI: refreshAPI });
@@ -96,30 +108,22 @@ function App() {
       formatNews(data);
     }
   }, [data, formatNews]);
+
+
   return (
     <main>
       <h1>📰 News Ipsum</h1>
 
-      <select
-        onChange={(e) => {
-          setNumOfParagraph(e.target.value);
-          setCopy(COPY_TEXT.COPY);
-        }}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <select
-        onChange={(e) => {
-          setSizeOfParagraph(e.target.value);
-          setCopy(COPY_TEXT.COPY);
-        }}
-      >
-        <option value={SIZE.SHORT}>Short</option>
-        <option value={SIZE.MEDIUM}>Medium</option>
-        <option value={SIZE.LONG}>Long</option>
-      </select>
+      <Select
+        opts={numOfParagraphOptions}
+        handleChange={setNumOfParagraph}
+        parentCallback={() => setCopy(COPY_TEXT.COPY)}
+      />
+      <Select
+        opts={sizeOfParagraphOptions}
+        handleChange={setSizeOfParagraph}
+        parentCallback={() => setCopy(COPY_TEXT.COPY)}
+      />
       <label>Paragraph(s)</label>
 
       <button
