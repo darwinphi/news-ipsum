@@ -21,7 +21,7 @@ function App() {
     { value: 1, label: "1" },
     { value: 2, label: "2" },
     { value: 3, label: "3" },
-  ];  
+  ];
 
   const sizeOfParagraphOptions = [
     { value: SIZE.SHORT, label: "Short" },
@@ -30,7 +30,10 @@ function App() {
   ];
 
   const [refreshAPI, setRefreshAPI] = useState(false);
-  let { data } = useFetch({ uri: API, refreshAPI: refreshAPI });
+  const { data, loading } = useFetch({
+    uri: API,
+    refreshAPI: refreshAPI,
+  });
   const [numOfParagraph, setNumOfParagraph] = useState(1);
   const [news, setNews] = useState(null);
   const [copy, setCopy] = useState(COPY_TEXT.COPY);
@@ -109,7 +112,6 @@ function App() {
     }
   }, [data, formatNews]);
 
-
   return (
     <main>
       <h1>📰 News Ipsum</h1>
@@ -146,7 +148,10 @@ function App() {
       </button>
 
       <section>
-        {news && news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+        {loading && <p style={{ textAlign: "center" }}>Loading News...</p>}
+        {!loading &&
+          news &&
+          news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
       </section>
     </main>
   );
