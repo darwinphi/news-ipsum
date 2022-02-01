@@ -148,7 +148,7 @@ function App() {
       </button>
 
       <section>
-        {loading && <p style={{ textAlign: "center" }}>Loading News...</p>}
+        {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
         {!loading &&
           news &&
           news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
