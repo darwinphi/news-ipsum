@@ -153,6 +153,7 @@ function App() {
           news &&
           news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
       </section>
+      <div className="layer waves"></div>
     </main>
   );
 }

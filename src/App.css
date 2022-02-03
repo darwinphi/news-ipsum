@@ -39,6 +39,18 @@ main section {
   background-color: var(--tertiary-bg-color);
 }
 
+.layer {
+  aspect-ratio: 900/600;
+  width: 100%;
+  background: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.waves {
+  background-image: url("./waves.svg");
+}
+
 @media only screen and (min-width: 600px) {
   main button {
     width: auto;
