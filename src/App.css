@@ -45,11 +45,10 @@ main section {
     margin: 0.8rem;
   }
 
-  main  {
+  main {
     width: 80vw;
   }
   main select {
-
     margin-right: 1rem;
   }
 }
@@ -59,11 +58,10 @@ main section {
     width: auto;
   }
 
-  main  {
+  main {
     width: 60vw;
   }
   main select {
-
     margin-right: 1rem;
   }
 }

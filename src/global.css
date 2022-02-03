@@ -23,6 +23,7 @@ body {
   font-size: var(--font-size);
   margin: 0;
   padding: 0;
+  line-height: 1.5;
 }
 
 input,
@@ -51,7 +52,9 @@ button {
   background-color: var(--button-bg-color);
   cursor: pointer;
   transition: 300ms;
-  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
 }
 
 button:active {
@@ -63,5 +66,3 @@ input,
 textarea {
   background-color: var(--secondary-bg-color);
 }
-
-
