@@ -40,7 +40,7 @@ main section {
 }
 
 .layer {
-  aspect-ratio: 900/600;
+  aspect-ratio: 900/200;
   width: 100%;
   background: no-repeat;
   background-position: center;
