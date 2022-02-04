@@ -39,6 +39,10 @@ main section {
   background-color: var(--tertiary-bg-color);
 }
 
+main section p::selection {
+  background-color: var(--secondary-bg-color);
+}
+
 .layer {
   aspect-ratio: 900/200;
   width: 100%;
