@@ -9,9 +9,9 @@ function App() {
   const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
   const API = `${API_URI}${API_KEY}`;
   const SIZE = {
-    SHORT: 5,
-    MEDIUM: 4,
-    LONG: 3,
+    SHORT: 4,
+    MEDIUM: 8,
+    LONG: 12,
   };
   const COPY_TEXT = {
     COPY: "📝 Copy",
@@ -49,10 +49,9 @@ function App() {
 
   const getSizeOfNews = useCallback(
     (news) => {
-      const size = Math.ceil(news.length / sizeOfParagraph);
-      return news.slice(1, size);
+      return news.slice(0, sizeOfParagraph * numOfParagraph);
     },
-    [sizeOfParagraph]
+    [sizeOfParagraph, numOfParagraph]
   );
 
   const shuffleNews = (news) => {
@@ -82,8 +81,8 @@ function App() {
   const divideParagraph = useCallback(
     (news) => {
       if (news) {
-        let shuffledNews = shuffleNews(news);
-        let combinedParagraph = combineParagraph(shuffledNews);
+        const shuffledNews = shuffleNews(news);
+        const combinedParagraph = combineParagraph(shuffledNews);
         let result = [];
         for (let i = numOfParagraph; i > 0; i--) {
           result.push(
