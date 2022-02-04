@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useFetch = ({ uri, refreshAPI }) => {
   const [loading, setLoading] = useState(null);
   const [data, setData] = useState(null);
+  const [time, setTime] = useState(null);
   useEffect(() => {
     setLoading("Loading...");
     const fetchData = async () => {
@@ -10,6 +11,15 @@ const useFetch = ({ uri, refreshAPI }) => {
         let response = await fetch(uri);
         let result = await response.json();
         setData(result.results);
+
+        const date = new Date(result.last_updated);
+        const time = date.toLocaleTimeString(navigator.language, {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        const place = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        setTime(`${time}, ${place}`);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -20,6 +30,7 @@ const useFetch = ({ uri, refreshAPI }) => {
 
   return {
     data,
+    time,
     loading,
   };
 };

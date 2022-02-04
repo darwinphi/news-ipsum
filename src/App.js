@@ -30,7 +30,7 @@ function App() {
   ];
 
   const [refreshAPI, setRefreshAPI] = useState(false);
-  const { data, loading } = useFetch({
+  const { data, time, loading } = useFetch({
     uri: API,
     refreshAPI: refreshAPI,
   });
@@ -148,10 +148,18 @@ function App() {
 
       <section>
         {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
+
         {!loading &&
           news &&
           news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+
+        {!loading && news && (
+          <p style={{ textAlign: "right" }}>
+            <i>As of {time}</i>
+          </p>
+        )}
       </section>
+
       <div className="layer waves"></div>
     </main>
   );
