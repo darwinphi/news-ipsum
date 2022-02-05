@@ -114,7 +114,6 @@ function App() {
   return (
     <main>
       <h1>📰 News Ipsum</h1>
-
       <Select
         opts={numOfParagraphOptions}
         handleChange={setNumOfParagraph}
@@ -126,7 +125,6 @@ function App() {
         parentCallback={() => setCopy(COPY_TEXT.COPY)}
       />
       <label>Paragraph(s)</label>
-
       <button
         className="button-latest-news"
         onClick={() => {
@@ -145,7 +143,6 @@ function App() {
       >
         {copy}
       </button>
-
       <section>
         {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
 
@@ -159,7 +156,6 @@ function App() {
           </p>
         )}
       </section>
-
       <div className="layer waves"></div>
     </main>
   );
