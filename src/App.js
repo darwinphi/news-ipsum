@@ -3,11 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import useFetch from "./useFetch";
 import Select from "./components/Select";
 
-function App() {
-  const API_URI =
-    "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=";
-  const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
-  const API = `${API_URI}${API_KEY}`;
+function App({ API }) {
   const SIZE = {
     SHORT: 4,
     MEDIUM: 8,
@@ -95,9 +91,14 @@ function App() {
     [numOfParagraph]
   );
 
+  const getResults = (data) => {
+    return data.results;
+  };
+
   const formatNews = useCallback(
     (data) => {
-      let combinedNews = combineNews(data);
+      let results = getResults(data);
+      let combinedNews = combineNews(results);
       let removedEmptyNews = removeEmptyNews(combinedNews);
       let sizeOfNews = getSizeOfNews(removedEmptyNews);
       return divideParagraph(sizeOfNews);

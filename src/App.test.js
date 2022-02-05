@@ -1,8 +1,29 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import { unmountComponentAtNode } from "react-dom";
 
-test('renders learn react link', () => {
+import App from "./App";
+
+test("renders title", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const title = screen.getByText(/📰 News Ipsum/i);
+  expect(title).toBeInTheDocument();
+});
+
+let container = null;
+
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+it("useFetch hook loads", () => {
+  render(<App API="uri1" />, container);
+  const title = screen.getByText(/Loading/i);
+  expect(title).toBeInTheDocument();
 });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useFetch = ({ uri, refreshAPI }) => {
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [time, setTime] = useState(null);
   useEffect(() => {
@@ -10,7 +10,7 @@ const useFetch = ({ uri, refreshAPI }) => {
       try {
         let response = await fetch(uri);
         let result = await response.json();
-        setData(result.results);
+        setData(result);
 
         const date = new Date(result.last_updated);
         const time = date.toLocaleTimeString(navigator.language, {

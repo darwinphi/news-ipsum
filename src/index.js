@@ -5,9 +5,13 @@ import "./global.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const API_URI = "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=";
+const API_KEY = "YKRi1r2uqATpwHGkRSKcRqLR31SUt2kl";
+const API = `${API_URI}${API_KEY}`;
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App API={API} />
   </React.StrictMode>,
   document.getElementById("root")
 );
