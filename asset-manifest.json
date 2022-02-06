@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/news-ipsum/static/css/main.726e747f.css",
-    "main.js": "/news-ipsum/static/js/main.7e46c8cf.js",
+    "main.js": "/news-ipsum/static/js/main.9177f451.js",
     "static/js/787.a78b3387.chunk.js": "/news-ipsum/static/js/787.a78b3387.chunk.js",
     "static/media/waves.svg": "/news-ipsum/static/media/waves.f6dd78e530404b99f26c.svg",
     "index.html": "/news-ipsum/index.html",
     "main.726e747f.css.map": "/news-ipsum/static/css/main.726e747f.css.map",
-    "main.7e46c8cf.js.map": "/news-ipsum/static/js/main.7e46c8cf.js.map",
+    "main.9177f451.js.map": "/news-ipsum/static/js/main.9177f451.js.map",
     "787.a78b3387.chunk.js.map": "/news-ipsum/static/js/787.a78b3387.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.726e747f.css",
-    "static/js/main.7e46c8cf.js"
+    "static/js/main.9177f451.js"
   ]
 }
