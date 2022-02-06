@@ -4,6 +4,7 @@ import useFetch from "./useFetch";
 import Header from "./components/Header";
 import Select from "./components/Select";
 import Button from "./components/Button";
+import Paragraphs from "./components/Paragraphs";
 
 function App({ API }) {
   const SIZE = {
@@ -147,11 +148,7 @@ function App({ API }) {
       />
       <section>
         {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
-
-        {!loading &&
-          news &&
-          news.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-
+        {!loading && news && <Paragraphs paragraphs={news} />}
         {!loading && news && (
           <p style={{ textAlign: "right" }}>
             <i>As of {time}</i>
