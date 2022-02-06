@@ -1,7 +1,9 @@
 import "./App.css";
 import { useState, useEffect, useCallback } from "react";
 import useFetch from "./useFetch";
+import Header from "./components/Header";
 import Select from "./components/Select";
+import Button from "./components/Button";
 
 function App({ API }) {
   const SIZE = {
@@ -114,7 +116,7 @@ function App({ API }) {
 
   return (
     <main>
-      <h1>📰 News Ipsum</h1>
+      <Header title="📰 News Ipsum"></Header>
       <Select
         opts={numOfParagraphOptions}
         handleChange={setNumOfParagraph}
@@ -127,24 +129,22 @@ function App({ API }) {
         parentCallback={() => setCopy(COPY_TEXT.COPY)}
       />
       <label>Paragraph(s)</label>
-      <button
+      <Button
+        title="🌎 Show Latest News"
         className="button-latest-news"
-        onClick={() => {
+        handleClick={() => {
           setRefreshAPI(!refreshAPI);
           setCopy(COPY_TEXT.COPY);
         }}
-      >
-        🌎 Show Latest News
-      </button>
-      <button
+      />
+      <Button
+        title={copy}
         className="button-copy"
-        onClick={() => {
+        handleClick={() => {
           copyText(news);
           setCopy(COPY_TEXT.COPIED);
         }}
-      >
-        {copy}
-      </button>
+      />
       <section>
         {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
 
