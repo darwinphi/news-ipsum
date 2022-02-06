@@ -119,6 +119,7 @@ function App({ API }) {
         opts={numOfParagraphOptions}
         handleChange={setNumOfParagraph}
         parentCallback={() => setCopy(COPY_TEXT.COPY)}
+        dataTestId="numOfParagraph"
       />
       <Select
         opts={sizeOfParagraphOptions}
