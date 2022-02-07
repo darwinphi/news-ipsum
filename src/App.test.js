@@ -24,21 +24,8 @@ it("should allow user to change paragraph", () => {
   expect(screen.getByRole("option", { name: "2" }).selected).toBe(true);
 });
 
-let container = null;
-
-beforeEach(() => {
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
 it("useFetch hook loads", () => {
-  render(<App API="uri1" />, container);
+  render(<App API="uri1" />);
   const title = screen.getByText(/Loading/i);
   expect(title).toBeInTheDocument();
 });
