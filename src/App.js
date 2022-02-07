@@ -148,12 +148,7 @@ function App({ API }) {
       />
       <section>
         {loading && <p style={{ textAlign: "center" }}>Loading...</p>}
-        {!loading && news && <Paragraphs paragraphs={news} />}
-        {!loading && news && (
-          <p style={{ textAlign: "right" }}>
-            <i>As of {time}</i>
-          </p>
-        )}
+        {!loading && news && <Paragraphs paragraphs={news} time={time} />}
       </section>
       <div className="layer waves"></div>
     </main>

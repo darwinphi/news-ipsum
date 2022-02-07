@@ -4,6 +4,7 @@ const useFetch = ({ uri, refreshAPI }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [time, setTime] = useState(null);
+
   useEffect(() => {
     setLoading("Loading...");
     const fetchData = async () => {

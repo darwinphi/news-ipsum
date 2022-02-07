@@ -1,4 +1,4 @@
-const Paragraphs = ({ paragraphs }) => {
+const Paragraphs = ({ paragraphs, time }) => {
   return (
     <>
       {!paragraphs && <p>No paragraphs</p>}
@@ -8,6 +8,9 @@ const Paragraphs = ({ paragraphs }) => {
             {paragraph}
           </p>
         ))}
+      <p style={{ textAlign: "right" }} role="time">
+        <i>As of {time}</i>
+      </p>
     </>
   );
 };
