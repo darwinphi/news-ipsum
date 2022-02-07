@@ -67,14 +67,7 @@ function App({ API }) {
       n.push(news[i].join(""));
     }
 
-    navigator.clipboard.writeText(n.join("\n\n")).then(
-      function () {
-        console.log("Copied");
-      },
-      function (err) {
-        console.log(err);
-      }
-    );
+    navigator.clipboard.writeText(n.join("\n\n"));
   };
 
   const divideParagraph = useCallback(
